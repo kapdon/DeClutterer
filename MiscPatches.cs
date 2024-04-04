@@ -11,7 +11,7 @@ namespace Framesaver
         public static bool everyOtherFixedUpdate = false;
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass570), "Update");
+            return AccessTools.Method(typeof(GClass649), "Update");
         }
 
         [PatchPrefix]
@@ -20,8 +20,8 @@ namespace Framesaver
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass570.GClass571.Update();
-                GClass570.GClass572.Update();
+                GClass649.GClass650.Update();
+                GClass649.GClass651.Update();
             }
             return false;
         }
@@ -31,7 +31,7 @@ namespace Framesaver
         public static bool everyOtherFixedUpdate = false;
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass570), "FixedUpdate");
+            return AccessTools.Method(typeof(GClass649), "FixedUpdate");
         }
 
         [PatchPrefix]
@@ -40,7 +40,7 @@ namespace Framesaver
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass570.GClass571.FixedUpdate();
+                GClass649.GClass650.FixedUpdate();
             }
             return false;
         }
@@ -59,7 +59,7 @@ namespace Framesaver
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass570.SyncTransforms();
+                GClass649.SyncTransforms();
             }
             return false;
         }

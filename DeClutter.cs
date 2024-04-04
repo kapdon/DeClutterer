@@ -16,7 +16,7 @@ using Koenigz.PerfectCulling.EFT;
 
 namespace TYR_DeClutterer
 {
-    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.1.5")]
+    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.1.6")]
     public class DeClutter : BaseUnityPlugin
     {
         private static GameWorld gameWorld;
@@ -53,15 +53,15 @@ namespace TYR_DeClutterer
         public static ConfigEntry<int> framesaverTextureSizeConfig;
         public static ConfigEntry<float> framesaverLODBiasConfig;
         public static bool applyDeclutter = false;
-        public static bool defaultsoftParticles = QualitySettings.softParticles;
-        public static int defaultparticleRaycastBudget = QualitySettings.particleRaycastBudget;
-        public static bool defaultsoftVegetation = QualitySettings.softVegetation;
-        public static bool defaultrealtimeReflectionProbes = QualitySettings.realtimeReflectionProbes;
-        public static int defaultpixelLightCount = QualitySettings.pixelLightCount;
-        public static ShadowQuality defaultShadows = QualitySettings.shadows;
-        public static int defaultshadowCascades = QualitySettings.shadowCascades;
-        public static int defaultmasterTextureLimit = QualitySettings.masterTextureLimit;
-        public static float defaultlodBias = QualitySettings.lodBias;
+        public static bool defaultsoftParticles = false;
+        public static int defaultparticleRaycastBudget = 0;
+        public static bool defaultsoftVegetation = false;
+        public static bool defaultrealtimeReflectionProbes = false;
+        public static int defaultpixelLightCount = 0;
+        public static ShadowQuality defaultShadows;
+        public static int defaultshadowCascades = 0;
+        public static int defaultmasterTextureLimit = 0;
+        public static float defaultlodBias = 0f;
 
         private void Awake()
         {

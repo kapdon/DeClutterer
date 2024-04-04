@@ -13,38 +13,42 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>dependencies\0Harmony.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Aki.Reflection">
-      <HintPath>..\..\..\Shared\Aki.Reflection.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\Aki.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Shared\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\..\..\Shared\BepInEx.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Harmony">
-      <HintPath>dependencies\BepInEx.Harmony.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\BepInEx.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Comfort">
-      <HintPath>..\..\..\Shared\Comfort.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\Comfort.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\Shared\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\Shared\UnityEngine.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\Shared\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(SolutionDir)Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
 	  <Reference Include="UnityEngine.ParticleSystemModule">
-		  <HintPath>..\..\..\Shared\UnityEngine.ParticleSystemModule.dll</HintPath>
+		  <HintPath>$(SolutionDir)Dependencies\UnityEngine.ParticleSystemModule.dll</HintPath>
 	  </Reference>
 	  <Reference Include="UnityEngine.PhysicsModule">
-		  <HintPath>..\..\..\Shared\UnityEngine.PhysicsModule.dll</HintPath>
+		  <HintPath>$(SolutionDir)Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
 	  </Reference>
   </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;G:\3.8.0 - Dev\BepInEx\plugins\$(TargetName).dll&quot;&#xD;&#xA;if $(ConfigurationName) == Debug (&#xD;&#xA;    copy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;G:\3.8.0 - Dev\BepInEx\plugins\$(TargetName).pdb&quot;&#xD;&#xA;) else (&#xD;&#xA;    del &quot;G:\3.8.0 - Dev\BepInEx\plugins\$(TargetName).pdb&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;del &quot;G:\3.8.0 - Dev\BepInEx\config\com.TYR.DeClutter.TYR_DeClutter.cfg&quot;" />
+	</Target>
 
 </Project>
