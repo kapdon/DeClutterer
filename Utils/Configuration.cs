@@ -14,6 +14,7 @@ namespace TYR_DeClutterer.Utils
         public static ConfigEntry<bool> declutterShardsEnabledConfig;
         public static ConfigEntry<bool> declutterUnscrutinizedEnabledConfig;
         public static ConfigEntry<float> declutterScaleOffsetConfig;
+
         public static ConfigEntry<bool> framesaverEnabledConfig;
         public static ConfigEntry<bool> framesaverPhysicsEnabledConfig;
         public static ConfigEntry<bool> framesaverParticlesEnabledConfig;

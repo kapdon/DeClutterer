@@ -95,12 +95,12 @@ namespace TYR_DeClutterer
 
         private void Start()
         {
-            InitializeClutterNameDictionary();
-
             SceneManager.sceneUnloaded += OnSceneUnloaded;
 
             Configuration.Bind(Config);
-            SubScribeConfig();
+            SubscribeConfig();
+
+            InitializeClutterNameDictionary();
 
             applyDeclutter = Configuration.declutterEnabledConfig.Value;
 
@@ -127,7 +127,7 @@ namespace TYR_DeClutterer
             deCluttered = true;
 
             DeClutterScene();
-            DeClutterVisuals();
+            OnApplyVisualsChanged();
         }
 
         private void InitializeClutterNameDictionary()
@@ -135,35 +135,85 @@ namespace TYR_DeClutterer
             var cleanUpJsonText = File.ReadAllText(Path.Combine(PluginFolder, "CleanUpNames.json"));
             CleanUpNames = JsonConvert.DeserializeObject<ClutterNameStruct>(cleanUpJsonText);
 
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.Garbage)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.Heaps)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.SpentCartridges)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.FoodDrink)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.Decals)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.Puddles)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            clutterNameDictionary = clutterNameDictionary.Concat(CleanUpNames.Shards)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            BuildClutterNameDict(null, null);
         }
 
-        private void SubScribeConfig()
+        private void BuildClutterNameDict(object sender, EventArgs e)
+        {
+            clutterNameDictionary.Clear();
+
+            clutterNameDictionary = Configuration.declutterGarbageEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.Garbage)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterHeapsEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.Heaps)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterSpentCartridgesEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.SpentCartridges)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterFakeFoodEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.FoodDrink)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterDecalsEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.Decals)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterPuddlesEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.Puddles)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+
+            clutterNameDictionary = Configuration.declutterShardsEnabledConfig.Value
+                ? clutterNameDictionary.Concat(CleanUpNames.Shards)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : clutterNameDictionary;
+        }
+
+        private void SubscribeConfig()
         {
             Configuration.declutterEnabledConfig.SettingChanged += OnApplyDeclutterSettingChanged;
+            Configuration.declutterGarbageEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterHeapsEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterSpentCartridgesEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterFakeFoodEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterDecalsEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterPuddlesEnabledConfig.SettingChanged += BuildClutterNameDict;
+            Configuration.declutterShardsEnabledConfig.SettingChanged += BuildClutterNameDict;
+
+            Configuration.framesaverEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverPhysicsEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverShellChangesEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverParticlesEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverSoftVegetationEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverReflectionsEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverLightingShadowsEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverWeatherUpdatesEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverTexturesEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverLODEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverParticleBudgetDividerConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverPixelLightDividerConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverShadowDividerConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverTextureSizeConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverLODBiasConfig.SettingChanged += OnApplyVisualsChanged;
+            Configuration.framesaverFireAndSmokeEnabledConfig.SettingChanged += OnApplyVisualsChanged;
+        }
+
+        private void OnApplyVisualsChanged(object sender, EventArgs e)
+        {
+            OnApplyVisualsChanged();
         }
 
         // Framesaver information and patches brought to you by Ari.
-        private void DeClutterVisuals()
+        private void OnApplyVisualsChanged()
         {
             if (Configuration.framesaverEnabledConfig.Value)
             {
