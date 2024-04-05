@@ -1,11 +1,12 @@
-using System.Reflection;
 using Aki.Reflection.Patching;
 using EFT.Weather;
 using HarmonyLib;
+using System.Reflection;
+using TYR_DeClutterer.Utils;
 
-namespace Framesaver
+namespace TYR_DeClutterer.Patches
 {
-    class AmbientLightOptimizeRenderingPatch : ModulePatch
+    internal class AmbientLightOptimizeRenderingPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
@@ -15,10 +16,14 @@ namespace Framesaver
         [PatchPrefix]
         public static bool Prefix()
         {
+            if (!Configuration.framesaverLightingShadowsEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             return false;
         }
     }
-    class AmbientLightDisableUpdatesPatch : ModulePatch
+
+    internal class AmbientLightDisableUpdatesPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
@@ -28,10 +33,14 @@ namespace Framesaver
         [PatchPrefix]
         public static bool Prefix()
         {
+            if (!Configuration.framesaverLightingShadowsEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             return false;
         }
     }
-    class AmbientLightDisableLateUpdatesPatch : ModulePatch
+
+    internal class AmbientLightDisableLateUpdatesPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
@@ -41,24 +50,34 @@ namespace Framesaver
         [PatchPrefix]
         public static bool Prefix()
         {
+            if (!Configuration.framesaverLightingShadowsEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             return false;
         }
     }
-    class CloudsControllerDelayUpdatesPatch : ModulePatch
+
+    internal class CloudsControllerDelayUpdatesPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
             return typeof(CloudsController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.Public);
         }
+
         [PatchPrefix]
         public static bool Prefix()
         {
+            if (!Configuration.framesaverWeatherUpdatesEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             return false;
         }
     }
+
     public class WeatherLateUpdatePatch : ModulePatch
     {
         public static bool everyOtherLateUpdate = false;
+
         protected override MethodBase GetTargetMethod()
         {
             return AccessTools.Method(typeof(WeatherController), "LateUpdate");
@@ -67,20 +86,25 @@ namespace Framesaver
         [PatchPrefix]
         public static bool PatchPrefix(WeatherController __instance, Class1794 ___class1794_0, ToDController ___TimeOfDayController)
         {
+            if (!Configuration.framesaverWeatherUpdatesEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             everyOtherLateUpdate = !everyOtherLateUpdate;
 
             if (everyOtherLateUpdate)
             {
-                ___TimeOfDayController.Update();           
+                ___TimeOfDayController.Update();
                 ___class1794_0.Update();
                 __instance.method_8();
             }
             return false;
         }
     }
+
     public class SkyDelayUpdatesPatch : ModulePatch
     {
         public static bool everyOtherLateUpdate = false;
+
         protected override MethodBase GetTargetMethod()
         {
             return AccessTools.Method(typeof(TOD_Sky), "LateUpdate");
@@ -89,8 +113,11 @@ namespace Framesaver
         [PatchPrefix]
         public static bool PatchPrefix(TOD_Sky __instance)
         {
+            if (!Configuration.framesaverWeatherUpdatesEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             everyOtherLateUpdate = !everyOtherLateUpdate;
-            
+
             if (everyOtherLateUpdate)
             {
                 __instance.method_17();
@@ -103,15 +130,20 @@ namespace Framesaver
             return false;
         }
     }
-    class WeatherEventControllerDelayUpdatesPatch : ModulePatch
+
+    internal class WeatherEventControllerDelayUpdatesPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
             return typeof(WeatherEventController).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public);
         }
+
         [PatchPrefix]
         public static bool Prefix()
         {
+            if (!Configuration.framesaverWeatherUpdatesEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
+                return true;
+
             return false;
         }
     }
