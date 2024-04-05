@@ -217,14 +217,21 @@ namespace TYR_DeClutterer
 
                 if (Configuration.framesaverTexturesEnabledConfig.Value)
                 {
-                    if (Configuration.framesaverTextureSizeConfig.Value > 1)
+                    if (Configuration.framesaverTextureSizeConfig.Value > 1 && Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value != 2)
                     {
-                        QualitySettings.masterTextureLimit = 0 + Configuration.framesaverTextureSizeConfig.Value;
+                        QualitySettings.masterTextureLimit = Configuration.framesaverTextureSizeConfig.Value;
                     }
                 }
                 else
                 {
-                    QualitySettings.masterTextureLimit = defaultmasterTextureLimit;
+                    if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+                    {
+                        QualitySettings.masterTextureLimit = 0;
+                    }
+                    else
+                    {
+                        QualitySettings.masterTextureLimit = defaultmasterTextureLimit;
+                    }
                 }
 
                 if (Configuration.framesaverLODEnabledConfig.Value)
