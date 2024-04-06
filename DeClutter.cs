@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TYR_DeClutterer
 {
-    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.3.0")]
+    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.2.2")]
     public class DeClutter : BaseUnityPlugin
     {
         private static string PluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -380,18 +380,11 @@ namespace TYR_DeClutterer
             bool childHasMesh = false;
             float sizeOnY = 3f;
             bool childHasCollider = false;
-            bool foundClutterName = false;
-            bool dontDisableName = _dontDisableDictionary.Keys.Any(key => obj.name.ToLower().Contains(key.ToLower()));
+            bool foundClutterName = foundClutterName = _clutterNameDictionary.Keys
+                .Any(key => obj.name.ToLower().Contains(key.ToLower()));
 
-            //EFT.UI.ConsoleScreen.LogError("Found Lod Group " + obj.name);
-            if (Configuration.declutterUnscrutinizedEnabledConfig.Value == true)
-            {
-                foundClutterName = true;
-            }
-            else
-            {
-                foundClutterName = _clutterNameDictionary.Keys.Any(key => obj.name.ToLower().Contains(key.ToLower()));
-            }
+            bool dontDisableName = _dontDisableDictionary.Keys.
+                Any(key => obj.name.ToLower().Contains(key.ToLower()));
 
             if (foundClutterName && !dontDisableName)
             {

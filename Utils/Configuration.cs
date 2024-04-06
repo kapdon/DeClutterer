@@ -12,7 +12,6 @@ namespace TYR_DeClutterer.Utils
         public static ConfigEntry<bool> declutterDecalsEnabledConfig;
         public static ConfigEntry<bool> declutterPuddlesEnabledConfig;
         public static ConfigEntry<bool> declutterShardsEnabledConfig;
-        public static ConfigEntry<bool> declutterUnscrutinizedEnabledConfig;
         public static ConfigEntry<float> declutterScaleOffsetConfig;
 
         public static ConfigEntry<bool> framesaverEnabledConfig;
@@ -27,7 +26,10 @@ namespace TYR_DeClutterer.Utils
         public static ConfigEntry<bool> framesaverTexturesEnabledConfig;
         public static ConfigEntry<bool> framesaverLODEnabledConfig;
         public static ConfigEntry<bool> framesaverFireAndSmokeEnabledConfig;
+
+        public static ConfigEntry<bool> framesaverLateUpdateEnabledConfig;
         public static ConfigEntry<int> framesaverParticleBudgetDividerConfig;
+
         public static ConfigEntry<int> framesaverPixelLightDividerConfig;
         public static ConfigEntry<int> framesaverShadowDividerConfig;
         public static ConfigEntry<int> framesaverTextureSizeConfig;
@@ -89,12 +91,6 @@ namespace TYR_DeClutterer.Utils
                 "G - Glass & Tile Shards",
                 true,
                 "De-Clutters things labeled 'shards' or similar. The things you can step on that make noise.");
-
-            declutterUnscrutinizedEnabledConfig = Config.Bind(
-                "B - De-Clutter Settings",
-                "H - Experimental Unscrutinized Disabler",
-                false,
-                "De-Clutters literally everything that doesn't have a collider, doesn't chare what the name is or the group is so above enablers will have no effect. It'll disable it all. Experimental, testing however has had positive results. Massively improves FPS.");
 
             framesaverEnabledConfig = Config.Bind(
                 "C - Framesaver Enabler",
