@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TYR_DeClutterer
 {
-    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.2.0")]
+    [BepInPlugin("com.TYR.DeClutter", "TYR_DeClutter", "1.2.1")]
     public class DeClutter : BaseUnityPlugin
     {
         private static string PluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -267,7 +267,11 @@ namespace TYR_DeClutterer
 
                 if (Configuration.framesaverTexturesEnabledConfig.Value)
                 {
-                    if (Configuration.framesaverTextureSizeConfig.Value > 1 && Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value != 2)
+                    if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+                    {
+                        QualitySettings.masterTextureLimit = 0;
+                    }
+                    else
                     {
                         QualitySettings.masterTextureLimit = Configuration.framesaverTextureSizeConfig.Value;
                     }
@@ -305,7 +309,16 @@ namespace TYR_DeClutterer
                 QualitySettings.pixelLightCount = defaultpixelLightCount;
                 QualitySettings.shadows = defaultShadows;
                 QualitySettings.shadowCascades = defaultshadowCascades;
-                QualitySettings.masterTextureLimit = defaultmasterTextureLimit;
+
+                if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+                {
+                    QualitySettings.masterTextureLimit = 0;
+                }
+                else
+                {
+                    QualitySettings.masterTextureLimit = defaultmasterTextureLimit;
+                }
+
                 QualitySettings.lodBias = defaultlodBias;
             }
         }
