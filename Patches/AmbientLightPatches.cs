@@ -1,4 +1,4 @@
-using Aki.Reflection.Patching;
+using StayInTarkov;
 using EFT.Weather;
 using HarmonyLib;
 using System.Reflection;
@@ -84,7 +84,7 @@ namespace TYR_DeClutterer.Patches
         }
 
         [PatchPrefix]
-        public static bool PatchPrefix(WeatherController __instance, Class1794 ___class1794_0, ToDController ___TimeOfDayController)
+        public static bool PatchPrefix(WeatherController __instance, Class1803 ___class1803_0, ToDController ___TimeOfDayController)
         {
             if (!Configuration.framesaverWeatherUpdatesEnabledConfig.Value || !Configuration.framesaverEnabledConfig.Value)
                 return true;
@@ -94,7 +94,7 @@ namespace TYR_DeClutterer.Patches
             if (everyOtherLateUpdate)
             {
                 ___TimeOfDayController.Update();
-                ___class1794_0.Update();
+                ___class1803_0.Update();
                 __instance.method_8();
             }
             return false;

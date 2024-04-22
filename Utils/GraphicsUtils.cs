@@ -69,7 +69,7 @@ namespace TYR_DeClutterer.Utils
         {
             if (Configuration.framesaverTexturesEnabledConfig.Value)
             {
-                if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+                if (Singleton<SettingsManager>.Instance.Graphics.Settings.TextureQuality.Value == 2)
                 {
                     QualitySettings.masterTextureLimit = 0;
                 }
@@ -80,7 +80,7 @@ namespace TYR_DeClutterer.Utils
             }
             else
             {
-                if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+                if (Singleton<SettingsManager>.Instance.Graphics.Settings.TextureQuality.Value == 2)
                 {
                     QualitySettings.masterTextureLimit = 0;
                 }
@@ -116,7 +116,7 @@ namespace TYR_DeClutterer.Utils
             QualitySettings.shadows = DeClutter.DefaultShadows;
             QualitySettings.shadowCascades = DeClutter.DefaultshadowCascades;
 
-            if (Singleton<SharedGameSettingsClass>.Instance.Graphics.Settings.TextureQuality.Value == 2)
+            if (Singleton<SettingsManager>.Instance.Graphics.Settings.TextureQuality.Value == 2)
             {
                 QualitySettings.masterTextureLimit = 0;
             }

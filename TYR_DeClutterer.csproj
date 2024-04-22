@@ -18,40 +18,44 @@
     <None Remove=".gitattributes" />
     <None Remove="README.md" />
   </ItemGroup>
+  
+  <PropertyGroup>
+    <ManagedAssembliesPath>..\SIT-Mod-Ports\References\</ManagedAssembliesPath>
+  </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>$(SolutionDir)Dependencies\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Aki.Reflection">
-      <HintPath>$(SolutionDir)Dependencies\Aki.Reflection.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(SolutionDir)Dependencies\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>$(SolutionDir)Dependencies\BepInEx.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Harmony">
-      <HintPath>$(SolutionDir)Dependencies\BepInEx.Harmony.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\BepInEx.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Comfort">
-      <HintPath>$(SolutionDir)Dependencies\Comfort.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\Comfort.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>$(SolutionDir)Dependencies\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StayInTarkov">
+      <HintPath>..\SIT-Mod-Ports\References\StayInTarkov.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>$(SolutionDir)Dependencies\UnityEngine.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(SolutionDir)Dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(ManagedAssembliesPath)\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
 	  <Reference Include="UnityEngine.ParticleSystemModule">
-		  <HintPath>$(SolutionDir)Dependencies\UnityEngine.ParticleSystemModule.dll</HintPath>
+		  <HintPath>$(ManagedAssembliesPath)\UnityEngine.ParticleSystemModule.dll</HintPath>
 	  </Reference>
 	  <Reference Include="UnityEngine.PhysicsModule">
-		  <HintPath>$(SolutionDir)Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
+		  <HintPath>$(ManagedAssembliesPath)\UnityEngine.PhysicsModule.dll</HintPath>
 	  </Reference>
   </ItemGroup>
 
@@ -65,8 +69,7 @@
     </None>
   </ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;G:\3.8.0 - Dev\BepInEx\plugins\Declutterer\$(TargetName).dll&quot;&#xD;&#xA;if $(ConfigurationName) == Debug (&#xD;&#xA;    copy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;G:\3.8.0 - Dev\BepInEx\plugins\Declutterer\$(TargetName).pdb&quot;&#xD;&#xA;) else (&#xD;&#xA;    del &quot;G:\3.8.0 - Dev\BepInEx\plugins\Declutterer\$(TargetName).pdb&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;del &quot;G:\3.8.0 - Dev\BepInEx\config\com.TYR.DeClutter.TYR_DeClutter.cfg&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(ProjectDir)$(OutDir)json\*.json&quot; &quot;G:\3.8.0 - Dev\BepInEx\plugins\Declutterer&quot; /Y /D" />
-	</Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  </Target>
 
 </Project>

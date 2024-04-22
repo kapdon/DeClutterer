@@ -1,4 +1,4 @@
-﻿using Aki.Reflection.Patching;
+﻿using StayInTarkov;
 using EFT;
 using EFT.Interactive;
 using HarmonyLib;
@@ -13,7 +13,7 @@ namespace TYR_DeClutterer.Patches
 
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass649), "Update");
+            return AccessTools.Method(typeof(GClass654), "Update");
         }
 
         [PatchPrefix]
@@ -25,8 +25,8 @@ namespace TYR_DeClutterer.Patches
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass649.GClass650.Update();
-                GClass649.GClass651.Update();
+                GClass654.GClass655.Update();
+                GClass654.GClass656.Update();
             }
             return false;
         }
@@ -38,7 +38,7 @@ namespace TYR_DeClutterer.Patches
 
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass649), "FixedUpdate");
+            return AccessTools.Method(typeof(GClass654), "FixedUpdate");
         }
 
         [PatchPrefix]
@@ -50,7 +50,7 @@ namespace TYR_DeClutterer.Patches
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass649.GClass650.FixedUpdate();
+                GClass654.GClass655.FixedUpdate();
             }
             return false;
         }
@@ -74,7 +74,7 @@ namespace TYR_DeClutterer.Patches
             everyOtherFixedUpdate = !everyOtherFixedUpdate;
             if (everyOtherFixedUpdate)
             {
-                GClass649.SyncTransforms();
+                GClass654.SyncTransforms();
             }
             return false;
         }

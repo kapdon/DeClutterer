@@ -1,4 +1,4 @@
-using Aki.Reflection.Patching;
+using StayInTarkov;
 using System.Reflection;
 using TYR_DeClutterer.Utils;
 
@@ -10,7 +10,7 @@ namespace TYR_DeClutterer.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return typeof(GClass1668).GetMethod("method_9", BindingFlags.Instance | BindingFlags.Public);
+            return typeof(WeaponEffectsManager).GetMethod("method_9", BindingFlags.Instance | BindingFlags.Public);
         }
 
         [PatchPrefix]
@@ -29,7 +29,7 @@ namespace TYR_DeClutterer.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return typeof(GClass1668).GetMethod("SpawnShellAfterJam", BindingFlags.Instance | BindingFlags.Public);
+            return typeof(WeaponEffectsManager).GetMethod("SpawnShellAfterJam", BindingFlags.Instance | BindingFlags.Public);
         }
 
         [PatchPrefix]
@@ -46,7 +46,7 @@ namespace TYR_DeClutterer.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return typeof(GClass1668).GetMethod("method_4", BindingFlags.Instance | BindingFlags.Public);
+            return typeof(WeaponEffectsManager).GetMethod("method_4", BindingFlags.Instance | BindingFlags.Public);
         }
 
         [PatchPrefix]
